@@ -6,13 +6,70 @@
 
 基于提示词工程与超长上下文处理的文献问答与对比分析系统是一个面向高校课程资料管理、科研文献阅读和批量比较分析场景的 Notebook 交互式系统。项目围绕论文导入、知识库构建、检索问答、单文档分析、多文档对比、结构化字段抽取与报告导出，构建了一个可落地、可复现、可解释的完整处理闭环。
 
-与通用聊天式工具相比，这个项目更强调三件事：回答必须尽量有检索证据支撑，分析结果必须可复查，长文档与批量任务必须能稳定跑完并支持中断恢复。
-
 ## 活动信息
 
 - **比赛 / 工作坊：** 2026 南邮寒假大作战 - AMD ROCm
 - **团队成员：** 施苏倪、严冉
-- **获奖情况：** 
+- **获奖情况：** 一等奖
+
+## 运行环境
+
+- **基础镜像：** Basic GPU Environment（aup-learning-cloud）
+- **额外依赖：** `langchain`、`langchain-openai`、`langchain-chroma`、`chromadb`、`ipywidgets`、`pypdf`、`python-docx`，详见 `requirements.txt`
+
+## 快速开始
+
+1. 在 aup-learning-cloud 中选择 **Basic GPU Environment**，Git URL 填写本案例仓库地址。
+2. 进入 `cases/2026-03-njupt-winter-battle/liuhuayaxi-smart-paper-qa-assistant/`。
+3. 打开 `main_zh.ipynb` 或 `main.ipynb`。
+4. 首次运行时，如果 `config/app_config.json` 不存在，系统会自动根据 `config/app_config.example.json` 生成默认配置。
+5. 在配置文件中填写聊天模型、嵌入模型以及对应的 OpenAI-compatible Base URL；如果聊天模型和嵌入模型共享同一服务，可复用同一个服务地址。
+6. 从头到尾运行 Notebook 所有单元，等待界面加载完成。
+7. 通过界面创建知识库、导入论文文件，再执行问答、单文分析或批量对比。
+
+一个典型配置示意如下：
+
+```json
+{
+  "OPENAI_CHAT_API_KEY": "your-api-key",
+  "OPENAI_CHAT_BASE_URL": "http://your-compatible-endpoint/v1",
+  "OPENAI_CHAT_MODEL": "your-chat-model",
+  "OPENAI_EMBEDDING_API_KEY": "your-api-key",
+  "OPENAI_EMBEDDING_BASE_URL": "http://your-compatible-endpoint/v1",
+  "OPENAI_EMBEDDING_MODEL": "your-embedding-model"
+}
+```
+
+## 技术亮点
+
+- 将问题改写、问答、单文分析、字段抽取和对比报告拆分为独立提示词模板，便于调参与审计。
+- 引入滑动窗口、递归摘要、预算压缩和降级重试，增强长文档与长会话场景下的稳定性。
+- 检索阶段结合向量召回、多信号重排与系统级引用追加，尽量提升答案的可追溯性。
+- 批量分析支持缓存、检查点、暂停与继续，适合真实研究与课程使用场景。
+
+## 结果 / 演示
+
+根据作品说明书中的阶段性统计，截至该版本项目已实现并验证了如下结果：
+
+- 已接入 66 份原始文档。
+- 已维护 2 个知识库。
+- 已写入 362 条向量记录。
+- 已生成 56 份 Markdown 报告。
+- 已导出 2 份 CSV 数据文件。
+
+系统可以稳定产出以下结果：
+
+- 带来源引用的问答结果。
+- 单篇文档结构化分析 JSON。
+- 多篇文档对比 Markdown 报告。
+- 字段对比表、异常告警和证据区。
+- 可继续的批量分析进度状态。
+
+## 参考资料
+
+- Ollama API Docs: [https://ollama.readthedocs.io/api/](https://ollama.readthedocs.io/api/)
+- LangChain Documentation: [https://python.langchain.com/docs/introduction/](https://python.langchain.com/docs/introduction/)
+- Chroma Documentation: [https://docs.trychroma.com/](https://docs.trychroma.com/)
 
 ## 项目背景与问题定义
 
@@ -143,13 +200,6 @@ flowchart TB
     REP --> TAB["附加表格、证据区与 CSV"]
 ```
 
-这部分能力适合以下场景：
-
-- 对单篇论文快速生成摘要、关键词、主题和风险点。
-- 对多篇论文做方法比较、共性归纳和差异分析。
-- 对实验指标、数据集、模型名称等字段进行结构化抽取。
-- 为综述写作、课程汇报、项目申报准备可复用素材。
-
 ### 4. 超长上下文处理机制
 
 长文档与多轮交互是项目最重要的技术难点之一。系统不是简单“截断输入”，而是做预算估算、滑窗摘要、递归合并和分级降载，尽量在有限上下文里保留更多高价值信息。
@@ -203,8 +253,6 @@ flowchart LR
 | ⑦ | 字段抽取提示词 | 抽取目标字段并绑定证据 | 结构化数据提取 |
 | ⑧ | 对比报告提示词 | 生成多文档 Markdown 报告 | 批量对比 |
 
-该设计的直接收益是：不同任务可以分开调参、分开缓存、分开审计，从而降低“一套提示词试图解决所有问题”导致的漂移。
-
 ## 工程化与可靠性设计
 
 项目不是只做算法功能，还实现了一整套稳定运行机制：
@@ -234,61 +282,9 @@ flowchart LR
 | `config/app_config.example.json` | 默认配置模板 |
 | `requirements.txt` | 运行依赖 |
 
-## 运行环境
-
-- **基础镜像：** Basic GPU Environment（aup-learning-cloud）
-- **额外依赖：** `langchain`、`langchain-openai`、`langchain-chroma`、`chromadb`、`ipywidgets`、`pypdf`、`python-docx`，详见 `requirements.txt`
-
-## 快速开始
-
-1. 在 aup-learning-cloud 中选择 **Basic GPU Environment**，Git URL 填写本案例仓库地址。
-2. 进入 `cases/2026-03-njupt-winter-battle/liuhuayaxi-smart-paper-qa-assistant/`。
-3. 打开 `main_zh.ipynb` 或 `main.ipynb`。
-4. 首次运行时，如果 `config/app_config.json` 不存在，系统会自动根据 `config/app_config.example.json` 生成默认配置。
-5. 在配置文件中填写聊天模型、嵌入模型以及对应的 OpenAI-compatible Base URL；如果聊天模型和嵌入模型共享同一服务，可复用同一个服务地址。
-6. 从头到尾运行 Notebook 所有单元，等待界面加载完成。
-7. 通过界面创建知识库、导入论文文件，再执行问答、单文分析或批量对比。
-
-一个典型配置示意如下：
-
-```json
-{
-  "OPENAI_CHAT_API_KEY": "your-api-key",
-  "OPENAI_CHAT_BASE_URL": "http://your-compatible-endpoint/v1",
-  "OPENAI_CHAT_MODEL": "your-chat-model",
-  "OPENAI_EMBEDDING_API_KEY": "your-api-key",
-  "OPENAI_EMBEDDING_BASE_URL": "http://your-compatible-endpoint/v1",
-  "OPENAI_EMBEDDING_MODEL": "your-embedding-model"
-}
-```
-
-## 结果 / 演示
-
-根据作品说明书中的阶段性统计，截至该版本项目已实现并验证了如下结果：
-
-- 已接入 66 份原始文档。
-- 已维护 2 个知识库。
-- 已写入 362 条向量记录。
-- 已生成 56 份 Markdown 报告。
-- 已导出 2 份 CSV 数据文件。
-
-从功能输出看，系统可以稳定产出以下结果：
-
-- 带来源引用的问答结果。
-- 单篇文档结构化分析 JSON。
-- 多篇文档对比 Markdown 报告。
-- 字段对比表、异常告警和证据区。
-- 可继续的批量分析进度状态。
-
 ## 适用场景
 
 - 课程资料问答与课后复习。
 - 学术论文阅读、归纳和综述准备。
 - 多篇文献的方法对比与结论汇总。
 - 项目申报、组会汇报和阶段性研究报告准备。
-
-## 参考资料
-
-- Ollama API Docs: [https://ollama.readthedocs.io/api/](https://ollama.readthedocs.io/api/)
-- LangChain Documentation: [https://python.langchain.com/docs/introduction/](https://python.langchain.com/docs/introduction/)
-- Chroma Documentation: [https://docs.trychroma.com/](https://docs.trychroma.com/)

@@ -6,13 +6,70 @@
 
 Literature QA and Comparative Analysis System Based on Prompt Engineering and Long-Context Processing is a notebook-based system for course-material QA, paper reading, and comparative literature analysis. Built on prompt engineering and long-context processing, it provides an end-to-end workflow covering document ingestion, knowledge-base construction, retrieval-based QA, single-paper analysis, multi-paper comparison, field extraction, and report export.
 
-Instead of acting like a generic chat demo, the project is designed as an engineering-oriented research assistant: answers should be grounded in retrieved evidence when possible, analysis should be reviewable, and long-running or long-context tasks should remain stable and resumable.
-
 ## Activity Information
 
 - **Competition / Workshop:** 2026 NJUPT Winter Battle - AMD ROCm
 - **Team Members:** Shi Suni, Yan Ran
-- **Awarded:** 
+- **Awarded:** First Prize
+
+## Environment
+
+- **Base Image:** Basic GPU Environment (aup-learning-cloud)
+- **Extra Dependencies:** `langchain`, `langchain-openai`, `langchain-chroma`, `chromadb`, `ipywidgets`, `pypdf`, `python-docx`; see `requirements.txt`
+
+## Quick Start
+
+1. In aup-learning-cloud, select **Basic GPU Environment** and use this case repository as the Git URL.
+2. Navigate to `cases/2026-03-njupt-winter-battle/liuhuayaxi-smart-paper-qa-assistant/`.
+3. Open `main.ipynb` or `main_zh.ipynb`.
+4. On the first run, if `config/app_config.json` does not exist, the notebook will generate it automatically from `config/app_config.example.json`.
+5. Fill in your chat model, embedding model, and their OpenAI-compatible Base URLs. If both models are hosted behind the same service, they can share the same endpoint.
+6. Run all notebook cells from top to bottom.
+7. Build a knowledge base, import paper files, and start QA, single-document analysis, or batch comparison in the UI.
+
+A typical configuration skeleton looks like this:
+
+```json
+{
+  "OPENAI_CHAT_API_KEY": "your-api-key",
+  "OPENAI_CHAT_BASE_URL": "http://your-compatible-endpoint/v1",
+  "OPENAI_CHAT_MODEL": "your-chat-model",
+  "OPENAI_EMBEDDING_API_KEY": "your-api-key",
+  "OPENAI_EMBEDDING_BASE_URL": "http://your-compatible-endpoint/v1",
+  "OPENAI_EMBEDDING_MODEL": "your-embedding-model"
+}
+```
+
+## Technical Highlights
+
+- Separate prompt templates are used for query rewriting, QA, single-document analysis, field extraction, and comparison reporting.
+- Long-context stability is improved with sliding windows, recursive summarization, prompt compression, and deterministic degradation.
+- Retrieval combines vector recall, multi-signal reranking, and system-level citation appending to improve answer traceability.
+- Batch analysis supports caching, checkpoints, pause/resume, and structured export for realistic research workflows.
+
+## Results / Demo
+
+According to the project manual, the tested project version had already reached the following milestone counts:
+
+- 66 raw source documents ingested;
+- 2 knowledge bases maintained;
+- 362 vector records created;
+- 56 Markdown reports generated;
+- 2 CSV files exported.
+
+Typical outputs produced by the system include:
+
+- QA responses with attached citation sections;
+- structured single-document analysis JSON;
+- multi-document Markdown comparison reports;
+- field comparison tables, evidence sections, and warning blocks;
+- resumable batch-analysis progress states.
+
+## References
+
+- Ollama API Docs: [https://ollama.readthedocs.io/api/](https://ollama.readthedocs.io/api/)
+- LangChain Documentation: [https://python.langchain.com/docs/introduction/](https://python.langchain.com/docs/introduction/)
+- Chroma Documentation: [https://docs.trychroma.com/](https://docs.trychroma.com/)
 
 ## Problem Setting
 
@@ -190,8 +247,6 @@ The project defines separate prompt templates for different tasks instead of ove
 | ⑦ | Field extraction prompt | Extract normalized structured fields with evidence binding | Data extraction |
 | ⑧ | Comparison report prompt | Generate Markdown comparison reports | Batch comparison |
 
-All of these templates can be configured and persisted through `config/app_config.json`.
-
 ## Reliability and Engineering Design
 
 The system includes several production-style safeguards:
@@ -221,61 +276,9 @@ The system includes several production-style safeguards:
 | `config/app_config.example.json` | Default configuration template |
 | `requirements.txt` | Runtime dependencies |
 
-## Environment
-
-- **Base Image:** Basic GPU Environment (aup-learning-cloud)
-- **Extra Dependencies:** `langchain`, `langchain-openai`, `langchain-chroma`, `chromadb`, `ipywidgets`, `pypdf`, `python-docx`; see `requirements.txt`
-
-## Quick Start
-
-1. In aup-learning-cloud, select **Basic GPU Environment** and use this case repository as the Git URL.
-2. Navigate to `cases/2026-03-njupt-winter-battle/liuhuayaxi-smart-paper-qa-assistant/`.
-3. Open `main.ipynb` or `main_zh.ipynb`.
-4. On the first run, if `config/app_config.json` does not exist, the notebook will generate it automatically from `config/app_config.example.json`.
-5. Fill in your chat model, embedding model, and their OpenAI-compatible Base URLs. If both models are hosted behind the same service, they can share the same endpoint.
-6. Run all notebook cells from top to bottom.
-7. Build a knowledge base, import paper files, and start QA, single-document analysis, or batch comparison in the UI.
-
-A typical configuration skeleton looks like this:
-
-```json
-{
-  "OPENAI_CHAT_API_KEY": "your-api-key",
-  "OPENAI_CHAT_BASE_URL": "http://your-compatible-endpoint/v1",
-  "OPENAI_CHAT_MODEL": "your-chat-model",
-  "OPENAI_EMBEDDING_API_KEY": "your-api-key",
-  "OPENAI_EMBEDDING_BASE_URL": "http://your-compatible-endpoint/v1",
-  "OPENAI_EMBEDDING_MODEL": "your-embedding-model"
-}
-```
-
-## Results / Demo
-
-According to the project manual, the tested project version had already reached the following milestone counts:
-
-- 66 raw source documents ingested;
-- 2 knowledge bases maintained;
-- 362 vector records created;
-- 56 Markdown reports generated;
-- 2 CSV files exported.
-
-Typical outputs produced by the system include:
-
-- QA responses with attached citation sections;
-- structured single-document analysis JSON;
-- multi-document Markdown comparison reports;
-- field comparison tables, evidence sections, and warning blocks;
-- resumable batch-analysis progress states.
-
 ## Use Cases
 
 - course-material QA and review;
 - academic paper reading and literature synthesis;
 - cross-paper method comparison and evidence summarization;
 - preparing project proposals, lab reports, and presentation materials.
-
-## References
-
-- Ollama API Docs: [https://ollama.readthedocs.io/api/](https://ollama.readthedocs.io/api/)
-- LangChain Documentation: [https://python.langchain.com/docs/introduction/](https://python.langchain.com/docs/introduction/)
-- Chroma Documentation: [https://docs.trychroma.com/](https://docs.trychroma.com/)
