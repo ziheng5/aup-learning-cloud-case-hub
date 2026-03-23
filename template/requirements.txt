@@ -1,0 +1,7 @@
+# Add your pip dependencies here, one per line.
+# Do NOT include: torch, torchvision, or rocm-related packages (pre-installed in Basic GPU Environment).
+#
+# Examples:
+# transformers==4.40.0
+# datasets
+# accelerate
