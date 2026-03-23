@@ -26,7 +26,7 @@ This project is an AI-powered co-writing platform designed for novelists. Beyond
 2. Navigate to `cases/<activity-folder>/<your-folder>/`
 3. Open `main.ipynb`
 4. Run all cells from top to bottom
-
+5. Enter a plot segment in the "Continue the story here..." box, then click any button below to test the tool
 ## Technical Highlights
 
 The workshop utilizes a **Frontend-Logic-Backend** asynchronous architecture to ensure a smooth UI experience during high-latency LLM inference. 
