@@ -21,7 +21,7 @@
 
 ```
 cases/
-└── 2026-03-njupt-winter-battle/         ← 活动文件夹
+└── 2026-03-njupt-winter-camp/         ← 活动文件夹
     ├── README.md                         ← 活动简介 + 获奖名单
     ├── 01-gold-teamalpha-llmchat/        ← 一等奖
     ├── 02-silver-teambeta-cvdetect/      ← 二等奖

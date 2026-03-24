@@ -41,7 +41,7 @@ cases/
 
 | Activity | Date | Entries | Awards |
 |----------|------|---------|--------|
-| [NJUPT Winter Battle](./cases/2026-03-njupt-winter-battle/) | 2026-03 | — | — |
+| [NJUPT Winter Battle](./cases/2026-03-njupt-winter-camp/) | 2026-03 | — | — |
 
 ## Contributing
 

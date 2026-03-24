@@ -21,7 +21,7 @@ Copy the `template/` directory into the correct activity folder. The final struc
 
 ```
 cases/
-└── 2026-03-njupt-winter-battle/         ← activity folder
+└── 2026-03-njupt-winter-camp/         ← activity folder
     ├── README.md                         ← activity overview & award list
     ├── 01-gold-teamalpha-llmchat/        ← 1st place
     ├── 02-silver-teambeta-cvdetect/      ← 2nd place

@@ -3,7 +3,7 @@
 Please check every item before submitting. PRs with unchecked items will not be merged.
 
 ### Folder & Files
-- [ ] Folder is placed inside the correct activity directory (e.g. `cases/2026-03-njupt-winter-battle/`)
+- [ ] Folder is placed inside the correct activity directory (e.g. `cases/2026-03-njupt-winter-camp/`)
 - [ ] Folder name follows the format: `teamname-projectslug` (lowercase, hyphens only, **no award prefix**)
 - [ ] `README.md` is present and all required fields are filled in **English**
 - [ ] `README_ZH.md` is present and all required fields are filled in **Chinese**
