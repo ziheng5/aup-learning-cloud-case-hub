@@ -110,19 +110,19 @@ const app = createApp({
                 const Live2DModel = PIXI.live2d.Live2DModel;
                 await Live2DModel.registerTicker(PIXI.Ticker);
                 
-                console.log('??????????:', MODEL_PATH);
+                console.log('模型路径:', MODEL_PATH);
                 live2dModel = await Live2DModel.from(MODEL_PATH);
                 
-                console.log('?????????, ????????');
+                console.log('模型加载成功，添加到舞台');
                 pixiApp.stage.addChild(live2dModel);
 
-                console.log('????????:', live2dModel.width, 'x', live2dModel.height);
+                console.log('模型尺寸:', live2dModel.width, 'x', live2dModel.height);
                 
                 const scaleX = canvasWidth / live2dModel.width;
                 const scaleY = canvasHeight / live2dModel.height;
                 const scale = Math.min(scaleX, scaleY);
                 
-                console.log('???????:', scale);
+                console.log('缩放比例:', scale);
                 
                 const scaledWidth = live2dModel.width * scale;
                 const scaledHeight = live2dModel.height * scale;
@@ -131,11 +131,11 @@ const app = createApp({
                 live2dModel.x = (canvasWidth - scaledWidth) / 2;
                 live2dModel.y = canvasHeight - scaledHeight;
                 
-                console.log('???????:', scaledWidth, 'x', scaledHeight);
-                console.log('???��??:', live2dModel.x, live2dModel.y);
+                console.log('缩放后尺寸:', scaledWidth, 'x', scaledHeight);
+                console.log('模型位置:', live2dModel.x, live2dModel.y);
 
                 this.modelLoaded = true;
-                console.log('Live2D ????????!');
+                console.log('Live2D 模型加载成功!');
 
                 this.startIdleMotion();
                 
@@ -143,7 +143,7 @@ const app = createApp({
                 await this.checkLocalServer();
 
             } catch (error) {
-                console.error('Live2D ???????:', error);
+                console.error('Live2D 模型加载失败:', error);
             }
         },
 
@@ -257,7 +257,7 @@ const app = createApp({
                     coreModel.setParameterValueById('ParamBreath', params.breath);
                 }
             } catch (e) {
-                console.log('???Live2D???????:', e);
+                console.log('应用Live2D参数出错:', e);
             }
         },
 
@@ -307,8 +307,8 @@ const app = createApp({
                     this.addMessage('ai', data.text);
                     this.bubbleText = data.text;
 
-                    console.log('???????????Live2D????:', data.live2d_params);
-                    console.log('???????:', data.emotion_vector);
+                    console.log('收到AI响应和Live2D参数:', data.live2d_params);
+                    console.log('情感向量:', data.emotion_vector);
                     
                     this.updateLive2DByEmotion(data.emotion, data.live2d_params);
 
