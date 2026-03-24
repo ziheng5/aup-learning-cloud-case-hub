@@ -17,15 +17,15 @@ Click **Fork** (top-right of this page) to create your own copy.
 
 ### 2. Create your project folder
 
-Copy the `template/` directory into the correct activity folder. The final structure in this repo (after awards are announced) looks like this:
+Copy the `template/` directory into the correct activity folder. The final structure in this repo looks like this:
 
 ```
 cases/
 └── 2026-03-njupt-winter-battle/         ← activity folder
     ├── README.md                         ← activity overview & award list
-    ├── 01-gold-teamalpha-llmchat/        ← 1st place (renamed by organizer)
-    ├── 02-silver-teambeta-cvdetect/      ← 2nd place (renamed by organizer)
-    ├── 03-bronze-teamgamma-robot/        ← 3rd place (renamed by organizer)
+    ├── 01-gold-teamalpha-llmchat/        ← 1st place
+    ├── 02-silver-teambeta-cvdetect/      ← 2nd place
+    ├── 03-bronze-teamgamma-robot/        ← 3rd place
     └── teamdelta-nlpchat/                ← general submission (no prefix)
         ├── README.md                     ← English documentation (required)
         ├── README_ZH.md                  ← Chinese documentation (required)

@@ -17,15 +17,15 @@
 
 ### 2. 创建你的作品文件夹
 
-将 `template/` 目录复制到对应的比赛文件夹下。本仓库最终（获奖公布后）的完整目录结构如下：
+将 `template/` 目录复制到对应的比赛文件夹下。本仓库最终的完整目录结构如下：
 
 ```
 cases/
 └── 2026-03-njupt-winter-battle/         ← 活动文件夹
     ├── README.md                         ← 活动简介 + 获奖名单
-    ├── 01-gold-teamalpha-llmchat/        ← 一等奖（主办方重命名）
-    ├── 02-silver-teambeta-cvdetect/      ← 二等奖（主办方重命名）
-    ├── 03-bronze-teamgamma-robot/        ← 三等奖（主办方重命名）
+    ├── 01-gold-teamalpha-llmchat/        ← 一等奖
+    ├── 02-silver-teambeta-cvdetect/      ← 二等奖
+    ├── 03-bronze-teamgamma-robot/        ← 三等奖
     └── teamdelta-nlpchat/                ← 普通提交（无前缀）
         ├── README.md                     ← 英文文档（必须提交）
         ├── README_ZH.md                  ← 中文文档（必须提交）
