@@ -30,12 +30,12 @@ This project is an intelligent assistant system designed for data processing and
 
 ## Technical Highlights
 
-* [cite_start]**Prompt Engineering:** Utilized System Roles, Few-shot prompting, and Chain-of-Thought (CoT) to ensure stable formatting and complex logical deduction[cite: 52, 58, 93].
-* [cite_start]**Context Window Management:** Implemented cascaded summary generation and an adaptive allocation algorithm to prevent Out-Of-Memory (OOM) errors with long texts[cite: 121, 123, 147].
-* [cite_start]**API Lifecycle Management:** Designed robust error handling with a linear backoff retry strategy to mitigate server rate limits and avoid "retry storms"[cite: 249, 251, 253].
-* [cite_start]**Robust Data Parsing:** Normalized polymorphic data streams and added a pre-execution circuit breaker to isolate corrupted files without crashing the pipeline[cite: 262, 265].
-* [cite_start]**Asynchronous Concurrency:** Used `ThreadPoolExecutor` to parallelize subtasks, masking network I/O latency and significantly boosting throughput[cite: 272, 273].
-* [cite_start]**I/O Optimization & Frontend:** Bypassed Jupyter WebSocket limits with a dual-modal I/O (including server-side direct read) and built an embedded GUI using native `ipywidgets`[cite: 281, 283, 288].
+* **Prompt Engineering:** Utilized System Roles, Few-shot prompting, and Chain-of-Thought (CoT) to ensure stable formatting and complex logical deduction.
+***Context Window Management:** Implemented cascaded summary generation and an adaptive allocation algorithm to prevent Out-Of-Memory (OOM) errors with long texts.
+* **API Lifecycle Management:** Designed robust error handling with a linear backoff retry strategy to mitigate server rate limits and avoid "retry storms".
+* **Robust Data Parsing:** Normalized polymorphic data streams and added a pre-execution circuit breaker to isolate corrupted files without crashing the pipeline.
+* **Asynchronous Concurrency:** Used `ThreadPoolExecutor` to parallelize subtasks, masking network I/O latency and significantly boosting throughput.
+* **I/O Optimization & Frontend:** Bypassed Jupyter WebSocket limits with a dual-modal I/O (including server-side direct read) and built an embedded GUI using native `ipywidgets`.
 ## Results / Demo
 
 * **Real-time File Dashboard:** Provides a real-time monitor for file parsing status, extracted character count, and estimated Token consumption, including smart alerts for exceeding text limits.
