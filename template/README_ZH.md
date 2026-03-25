@@ -15,7 +15,10 @@
 ## 运行环境 <!-- 必填 -->
 
 - **基础镜像：** Basic GPU Environment（aup-learning-cloud）
-- **额外依赖：** 见 `requirements.txt` <!-- 必填：简要说明关键依赖包，无则填"无" -->
+- **额外依赖：** 见 `requirements.txt` <!-- 必填：简要说明关键依赖包，无则填"无" 
+- **GPU:** AMD Radeon 8060S
+- **显存:** 64GB 共享内存
+
 
 ## 快速开始 <!-- 必填 -->
 
