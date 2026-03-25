@@ -24,7 +24,7 @@ This project is an intelligent assistant system designed for data processing and
 <!-- Step-by-step instructions to run your notebook. Be specific. -->
 
 1. In aup-learning-cloud, select **Basic GPU Environment** and set the Git URL to this repository
-2. Navigate to `cases/<activity-folder>/<your-folder>/`
+2. Navigate to `cases/2026-03-njupt-winter-camp/03-bronze-lifengyi-ITARAssiant`
 3. Open `main.ipynb`
 4. Run all cells from top to bottom
 
